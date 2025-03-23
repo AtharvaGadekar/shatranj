@@ -1,7 +1,7 @@
-# Replace with your actual domain
-gadekar.in {
+# Domain configuration
+gadekar.in, 65.0.135.249 {
     # Serve files from the public directory
-    root * /path/to/your/app/public
+    root * /opt/shatranj/public
     
     # Enable file server
     file_server
@@ -27,9 +27,12 @@ gadekar.in {
     
     # Log to a file
     log {
-        output file /var/log/caddy/yourdomain.log {
+        output file /var/log/caddy/gadekar.log {
             roll_size 10MB
             roll_keep 10
         }
     }
-} 
+    
+    # Try to serve index.html if the main URL is accessed
+    try_files {path} /index.html
+}
