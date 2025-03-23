@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../chess-svg/icpieces/wN.svg">
+    <link rel="stylesheet" href="chessboard-styles.css">
+    <script src="moves.js"></script>
+    <script src="engine.js"></script>
+    <title>Deep Blue Chessboard</title>
+</head>
+<body>
+    <div class="game-container">
+        <div class="board-container">
+            <div class="chessboard">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                
+                <script>
+                    let board = document.querySelector(".chessboard");
+                    let pieces = {
+                        'a8': 'black-rook', 'b8': 'black-knight', 'c8': 'black-bishop', 'd8': 'black-queen',
+                        'e8': 'black-king', 'f8': 'black-bishop', 'g8': 'black-knight', 'h8': 'black-rook',
+                        'a7': 'black-pawn', 'b7': 'black-pawn', 'c7': 'black-pawn', 'd7': 'black-pawn',
+                        'e7': 'black-pawn', 'f7': 'black-pawn', 'g7': 'black-pawn', 'h7': 'black-pawn',
+                        'a2': 'white-pawn', 'b2': 'white-pawn', 'c2': 'white-pawn', 'd2': 'white-pawn',
+                        'e2': 'white-pawn', 'f2': 'white-pawn', 'g2': 'white-pawn', 'h2': 'white-pawn',
+                        'a1': 'white-rook', 'b1': 'white-knight', 'c1': 'white-bishop', 'd1': 'white-queen',
+                        'e1': 'white-king', 'f1': 'white-bishop', 'g1': 'white-knight', 'h1': 'white-rook'
+                    };
+                    
+                    function getPieceImage(piece) {
+                        if (!piece) return '';
+                        
+                        let pieceMap = {
+                            'white-pawn': 'wp', 'white-rook': 'wr', 'white-knight': 'wn',
+                            'white-bishop': 'wb', 'white-queen': 'wq', 'white-king': 'wk',
+                            'black-pawn': 'bp', 'black-rook': 'br', 'black-knight': 'bn',
+                            'black-bishop': 'bb', 'black-queen': 'bq', 'black-king': 'bk'
+                        };
+                        
+                        let pieceCode = pieceMap[piece];
+                        return pieceCode ? `url('../chess-svg/${pieceCode}.svg')` : '';
+                    }
+                    
+                    const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+                    for (let row = 8; row >= 1; row--) {
+                        board.innerHTML += `<div class='notation rank-label'>${row}</div>`;
+                        
+                        for (let col = 0; col < 8; col++) {
+                            let color = (row + col) % 2 === 0 ? 'light' : 'dark';
+                            let square = files[col] + row;
+                            let piece = pieces[square];
+                            let pieceHtml = piece ? 
+                                `<div class="piece" style="background-image: ${getPieceImage(piece)}" data-piece="${piece}"></div>` : '';
+                            
+                            board.innerHTML += `<div class='square ${color}' data-square="${square}">${pieceHtml}</div>`;
+                        }
+                        
+                        board.innerHTML += `<div></div>`;
+                    }
+                </script>
+                
+                <div></div>
+                <div class="notation file-label">A</div>
+                <div class="notation file-label">B</div>
+                <div class="notation file-label">C</div>
+                <div class="notation file-label">D</div>
+                <div class="notation file-label">E</div>
+                <div class="notation file-label">F</div>
+                <div class="notation file-label">G</div>
+                <div class="notation file-label">H</div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
