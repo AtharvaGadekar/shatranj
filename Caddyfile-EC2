@@ -1,5 +1,12 @@
+{
+    # Explicitly set ports and bind to all interfaces
+    http_port 80
+    https_port 443
+    admin localhost:2019
+}
+
 # Domain configuration
-gadekar.in, 65.0.135.249 {
+http://gadekar.in, http://65.0.135.249 {
     # Serve files from the public directory
     root * /opt/shatranj/public
     
