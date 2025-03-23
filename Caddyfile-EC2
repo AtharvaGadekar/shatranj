@@ -1,0 +1,35 @@
+# Replace with your actual domain
+gadekar.in {
+    # Serve files from the public directory
+    root * /path/to/your/app/public
+    
+    # Enable file server
+    file_server
+    
+    # Enable gzip compression
+    encode gzip
+    
+    # Add cache control for static assets
+    header /chess-svg/* Cache-Control "public, max-age=31536000"
+    header /stockfish.js Cache-Control "public, max-age=31536000"
+    
+    # Basic security headers
+    header {
+        # Enable HSTS
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        # Prevent MIME type sniffing
+        X-Content-Type-Options "nosniff"
+        # Referrer policy
+        Referrer-Policy "strict-origin-when-cross-origin"
+        # Content Security Policy
+        Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;"
+    }
+    
+    # Log to a file
+    log {
+        output file /var/log/caddy/yourdomain.log {
+            roll_size 10MB
+            roll_keep 10
+        }
+    }
+} 

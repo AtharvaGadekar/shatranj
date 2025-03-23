@@ -1,0 +1,36 @@
+# Local development configuration
+localhost:8080 {
+    # Serve files from the public directory
+    root * ./public
+    
+    # Enable file server
+    file_server
+    
+    # Enable gzip compression
+    encode gzip
+    
+    # Optional: Add cache control for static assets
+    header /chess-svg/* Cache-Control "public, max-age=31536000"
+    header /stockfish.js Cache-Control "public, max-age=31536000"
+    
+    # Handle errors
+    handle_errors {
+        respond "{http.error.status_code} {http.error.status_text}" 
+    }
+    
+    # Basic security headers
+    header {
+        # Enable HSTS
+        Strict-Transport-Security "max-age=31536000; includeSubDomains"
+        # Prevent MIME type sniffing
+        X-Content-Type-Options "nosniff"
+        # Referrer policy
+        Referrer-Policy "strict-origin-when-cross-origin"
+    }
+    
+    # Log access to stdout
+    log {
+        output stdout
+        format console
+    }
+} 
